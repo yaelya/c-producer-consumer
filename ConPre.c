@@ -90,7 +90,7 @@ void send_fun()
 
      }
      
-     for (i = 0; i < 4 ; ++i)
+	for (i = 0; i < 4 ; ++i)
      {
      	printf("consumer:wake-- \n") ;
 		pthread_create(&con[i], NULL, consumer, NULL);
@@ -112,7 +112,6 @@ void join_threads()
 	
 	}
 	
-
 	pthread_mutex_destroy(&the_mutex);
      sem_destroy(&full);
      sem_destroy(&empty);
@@ -126,7 +125,7 @@ int main()
 	init();
 	
 	send_fun();
-     join_threads();
+	join_threads();
 	
 	return 0;
 }
