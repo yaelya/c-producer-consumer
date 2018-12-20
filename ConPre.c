@@ -112,7 +112,7 @@ void join_threads()
 	
 	pthread_mutex_destroy(&the_mutex);
 	sem_destroy(&full);
-     sem_destroy(&empty);
+	sem_destroy(&empty);
 }
 
 
