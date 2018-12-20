@@ -38,7 +38,6 @@ void add(int item)
 int remove_item()
 {
 	int index = buffer[count];
-	//printf("remove item %d\n", index);
 	count--;
 	return index;
 }
@@ -84,43 +83,42 @@ void send_fun()
 {
 	int i;
 	for (i = 0; i < 3 ; ++i)
-     {
+	{
      	printf("produce:wake-- \n") ;
 		pthread_create(&pro[i], NULL, producer, NULL);
-
-     }
+	}
      
 	for (i = 0; i < 4 ; ++i)
-     {
+	{
      	printf("consumer:wake-- \n") ;
 		pthread_create(&con[i], NULL, consumer, NULL);
-     }
+	}
 }
 
 
 void join_threads()
 {
 	int i;
-     for (i = 0; i < 3; ++i)
+	for (i = 0; i < 3; ++i)
 	{
 		pthread_join(pro[i], NULL);
 	}
 	
-     for (i = 0; i < 4; ++i)
+	for (i = 0; i < 4; ++i)
 	{
 		pthread_join(con[i], NULL);
 	
 	}
 	
 	pthread_mutex_destroy(&the_mutex);
-     sem_destroy(&full);
+	sem_destroy(&full);
      sem_destroy(&empty);
 }
 
 
 int main()
 {
-	printf("--- MAIN ---\n");
+	printf("---  MAIN  ---\n");
 	
 	init();
 	
