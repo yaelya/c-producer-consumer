@@ -9,7 +9,8 @@
 pthread_mutex_t the_mutex;
 sem_t  full, empty;
 int buffer[maxbuf];
-int count = 0;
+static int count = 0;
+pthread_t pro[3], con[4];
 
 void init()
 {
@@ -79,16 +80,9 @@ void* consumer()
 }
 
 
-int main()
+void send_fun()
 {
-	printf("--- MAIN ---\n");
-
 	int i;
-	pthread_t pro[3], con[4];
-	
-	init();
-	
-	
 	for (i = 0; i < 3 ; ++i)
      {
      	printf("produce:wake-- \n") ;
@@ -101,7 +95,12 @@ int main()
      	printf("consumer:wake-- \n") ;
 		pthread_create(&con[i], NULL, consumer, NULL);
      }
-     
+}
+
+
+void join_threads()
+{
+	int i;
      for (i = 0; i < 3; ++i)
 	{
 		pthread_join(pro[i], NULL);
@@ -112,7 +111,23 @@ int main()
 		pthread_join(con[i], NULL);
 	
 	}
-     	
+	
+
+	pthread_mutex_destroy(&the_mutex);
+     sem_destroy(&full);
+     sem_destroy(&empty);
+}
+
+
+int main()
+{
+	printf("--- MAIN ---\n");
+	
+	init();
+	
+	send_fun();
+     join_threads();
+	
 	return 0;
 }
 
